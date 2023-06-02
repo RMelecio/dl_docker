@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  digitalife-admin:
+    container_name: admin
+    image: digitalife-56:1.0
+    ports:
+      - 4000:80
+    volumes:
+      - ./:/var/www/html/
