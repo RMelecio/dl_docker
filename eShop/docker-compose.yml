@@ -3,7 +3,7 @@ version: "3.7"
 services:
   digitalife-eshop:
     container_name: eshop
-    image: digitalife-72:1.0
+    image: .
     ports:
       - 8000:80
     volumes:

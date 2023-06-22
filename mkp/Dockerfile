@@ -1,0 +1,18 @@
+FROM debian:bullseye
+
+RUN apt update && apt upgrade -y
+RUN apt install -y wget software-properties-common ca-certificates lsb-release apt-transport-https apache2 gnupg2 unzip git curl
+COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN a2enmod rewrite
+RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+RUN sh -c 'echo "deb https://packages.sury.org/php/ bullseye main" > /etc/apt/sources.list.d/php.list'
+RUN apt update
+RUN apt install -y php7.2
+RUN apt install -y php7.2-cli php7.2-mbstring php7.2-xml php7.2-common php7.2-curl libapache2-mod-php7.2 php7.2-mcrypt php7.2-mysql php7.2-gd
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php composer-setup.php
+RUN php -r "unlink('composer-setup.php');"
+RUN mv composer.phar /usr/local/bin/composer
+EXPOSE 80
+CMD apache2ctl -D FOREGROUND

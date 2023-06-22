@@ -1,0 +1,70 @@
+version: "3.7"
+
+services:
+  digitalife-mysql:
+    container_name: mysql
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    networks:
+      - digitalife
+
+  digitalife-admin:
+    container_name: admin
+    build:
+      context: ./admin
+    ports:
+      - 4000:80
+    volumes:
+      - ./admin/:/var/www/html/
+    networks:
+      - digitalife
+    depends_on:
+      - digitalife-mysql
+
+  digitalife-api:
+    container_name: api
+    build:
+      context: ./api
+    ports:
+      - 13000:80
+    volumes:
+      - ./api/:/var/www/html/
+    networks:
+      - digitalife
+    depends_on:
+      - digitalife-mysql
+
+  digitalife-eshop:
+    container_name: eshop
+    build:
+      context: ./eShop
+    ports:
+      - 8000:80
+    volumes:
+      - ./eShop/:/var/www/html/
+    networks:
+      - digitalife
+    depends_on:
+      - digitalife-mysql
+
+  digitalife-mkp:
+    container_name: mkp
+    build:
+      context: ./mkp
+    ports:
+      - 8089:80
+    volumes:
+      - ./mkp/:/var/www/html/
+    networks:
+      - digitalife
+    depends_on:
+      - digitalife-mysql
+
+networks:
+    digitalife:
+        driver: bridge
