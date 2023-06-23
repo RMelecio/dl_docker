@@ -56,7 +56,7 @@ You need change datebase host on .env file
 ```sh
 DB_HOST=localhost
 ```
-- TO mysql container name
+- To mysql container name
 ```sh
 DB_HOST=mysql
 ```
