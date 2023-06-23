@@ -48,3 +48,15 @@ docker exec -it api bin/bash
 cd /var/www/html
 composer install
 ```
+
+## Database config .env
+
+You need change datebase host on .env file
+- From localhost or IP
+```sh
+DB_HOST=localhost
+```
+- TO mysql container name
+```sh
+DB_HOST=mysql
+```
