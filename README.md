@@ -40,18 +40,6 @@ docker compose down -d
 docker compose restart
 ```
 
-Copy Dockerfile, docker-com
-
-Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
-
-Install the dependencies and devDependencies and start the server.
-
-```sh
-cd dillinger
-npm i
-node app
-```
-
 ## From the scratch
 
 When you begin from a new instalacion of a proyect you need install all laravel dependensis from inside of container
