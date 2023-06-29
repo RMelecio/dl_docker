@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt update && apt upgrade -y
-RUN apt install -y wget software-properties-common ca-certificates lsb-release apt-transport-https apache2 gnupg2 unzip git curl
+RUN apt install -y wget software-properties-common ca-certificates lsb-release apt-transport-https apache2 gnupg2 unzip git curl unzip
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
